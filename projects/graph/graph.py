@@ -86,10 +86,8 @@ class Graph:
         """
         # Create an empty queue and enqueue A PATH TO the starting vertex ID
         q = Queue()
-        visited = set()
-        path = []
         q.enqueue([starting_vertex])
-        q.enqueue(path)
+        visited = set()
         while q.size() > 0:
             current = q.dequeue()
             if current[-1] == destination_vertex:
@@ -105,7 +103,17 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        s = Stack()
+        s.push([starting_vertex])
+        visited = set()
+        while s.size() > 0:
+            current = s.pop()
+            if current[-1] == destination_vertex:
+                return current
+            if current[-1] not in visited:
+                visited.add(current[-1])
+                for node in self.vertices[current[-1]]:
+                    s.push(current + [node])
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
