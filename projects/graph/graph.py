@@ -70,10 +70,10 @@ class Graph:
         """
         # Base case
         if starting_vertex not in visited:
-            # Print and add like last itme
+            # Print and add like last time
             print(starting_vertex)
             visited.add(starting_vertex)
-            # Loop through vertices instead of the get_neighbors method
+            # Loop through vertices
             for node in self.vertices[starting_vertex]:
                 # Recurse..
                 self.dft_recursive(node)
@@ -83,6 +83,17 @@ class Graph:
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
+        q = q = Queue()
+        visited = set()
+        q.enqueue(starting_vertex)
+        while q.size() > 0:
+            v = q.dequeue()
+            if v not in visited:
+                print(v)
+                visited.add(v)
+                for neighbor in self.get_neighbors(v):
+                    q.enqueue(neighbor)
+
         """
         # Create an empty queue and enqueue A PATH TO the starting vertex ID
         q = Queue()
@@ -115,7 +126,7 @@ class Graph:
                 for node in self.vertices[current[-1]]:
                     s.push(current + [node])
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set()):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -123,7 +134,16 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # Path is empty until we return after recursion
+        path = []
+        if starting_vertex == destination_vertex:
+            return [starting_vertex]
+        # If not in the set, add it and continue to the next node
+        if starting_vertex not in visited:
+            visited.add(starting_vertex)
+            for node in self.vertices[starting_vertex]:
+                path = [starting_vertex] + self.dfs_recursive(node, destination_vertex, visited)
+        return path
 
 
 if __name__ == '__main__':
