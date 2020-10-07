@@ -10,8 +10,10 @@ def earliest_ancestor(ancestors, starting_node, child=None):
                     child[a[1]] = a[0]
                 else:
                     continue
-            child[a[1]] = a[0]
+            else:
+                child[a[1]] = a[0]
 
+    # if starting node is not a key
     if starting_node not in child:
         return -1
     if starting_node in child:
@@ -22,7 +24,7 @@ def earliest_ancestor(ancestors, starting_node, child=None):
 
 
 
-        # Test samples
+# Test samples
 # test_ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 #         self.assertEqual(earliest_ancestor(test_ancestors, 1), 10)
 #         self.assertEqual(earliest_ancestor(test_ancestors, 2), -1)
