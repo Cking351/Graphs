@@ -28,7 +28,10 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-
+# Opposite directions that can be traversed.
+opposite_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
+visited = set()
+path = {}
 
 
 # TRAVERSAL TEST
