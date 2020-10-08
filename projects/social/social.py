@@ -50,7 +50,6 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
-
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -72,7 +71,6 @@ class SocialGraph:
                     path_copy = list(path)
                     path_copy.append(neighbor)
                     q.enqueue(path_copy)
-
         return visited
 
 

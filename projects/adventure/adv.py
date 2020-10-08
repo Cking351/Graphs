@@ -33,6 +33,8 @@ opposite_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
 visited = set()
 path = {}
 
+while len(visited) > len(room_graph):
+
 
 # TRAVERSAL TEST
 visited_rooms = set()
