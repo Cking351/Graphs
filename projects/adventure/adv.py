@@ -29,33 +29,35 @@ player = Player(world.starting_room)
 traversal_path = []
 # Opposite directions that can be traversed.
 opposite_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
-visited = set()
+cached_rooms = list()
 path = {}
-cache_rooms = list()
+path_copy = {}
 
-while len(visited) < len(room_graph):
+while len(path) < len(room_graph):
     room_id = player.current_room.id
-    # If current id has not been logged, add it
     if room_id not in path:
-        visited.add(room_id)
-        # Fill values with data from get_exits
+        # This will be important to return filled out graph
         path[room_id] = player.current_room.get_exits()
+        # Create a copy that we can pop() off of to keep track of where we are
+        path_copy[room_id] = player.current_room.get_exits()
 
-    # if there are no other routes, travel back
-    if len(path[room_id]) < 1:
-        prev = cache_rooms.pop()
+    if len(path_copy[room_id]) > 0:
+        next_dir = path_copy[room_id].pop()
+        traversal_path.append(next_dir)
+        cached_rooms.append(opposite_directions[next_dir])
+        player.travel(next_dir)
+    else:
+        prev = cached_rooms.pop()
         traversal_path.append(prev)
         player.travel(prev)
-    else:
-        next_dir = path[room_id].pop()
-        traversal_path.append(next_dir)
-        cache_rooms.append(opposite_directions[next_dir])
-        player.travel(next_dir)
 
 # TRAVERSAL TEST
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
+print(path)
+# print(traversal_path)
+# print(path_copy)
 
 for move in traversal_path:
     player.travel(move)
